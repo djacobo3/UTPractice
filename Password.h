@@ -20,6 +20,6 @@ public:
   receives a string and returns whether it has both at least one upper-case
   letter and at least one lower-case letter
   */
-  bool has_mixed_case(string);
+  bool has_mixed_case(string word);
 };
 #endif
