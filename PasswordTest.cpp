@@ -14,9 +14,68 @@ class PracticeTest : public ::testing::Test
 		virtual void TearDown(){} //clean up after each test, (before destructor)
 };
 
-TEST(PasswordTest, single_letter_password)
-{
+TEST(PasswordTest, single_letter_password){
 	Password my_password;
 	int actual = my_password.count_leading_characters("Z");
 	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, same_letter_start){
+	Password my_password;
+	int actual = my_password.count_leading_characters("AAH");
+	ASSERT_EQ(2, actual);
+}
+
+TEST(PasswordTest, both_cases){
+	Password my_password;
+	int actual = my_password.count_leading_characters("AaA");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, separation_password){
+	Password my_password;
+	int actual = my_password.count_leading_characters("zzzgarazzz");
+	ASSERT_EQ(3, actual);
+}
+
+TEST(PasswordTest, space_password){
+	Password my_password;
+	int actual = my_password.count_leading_characters("   ");
+	ASSERT_EQ(3, actual);
+}
+
+TEST(PasswordTest, endline_password){
+	Password my_password;
+	int actual = my_password.count_leading_characters("\ntest");
+	ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, empty_password){
+	Password my_password;
+	int actual = my_password.count_leading_characters("");
+	ASSERT_EQ(0, actual);
+}
+
+TEST(CaseTest, both_cases){
+	Password my_password;
+	bool actual = my_password.has_mixed_case("AaA");
+	ASSERT_EQ(true, actual);
+}
+
+TEST(CaseTest, lower_only){
+	Password my_password;
+	bool actual = my_password.has_mixed_case("abc");
+	ASSERT_EQ(false, actual);
+}
+
+TEST(CaseTest, upper_only){
+	Password my_password;
+	bool actual = my_password.has_mixed_case("ABC");
+	ASSERT_EQ(false, actual);
+}
+
+TEST(CaseTest, symbols){
+	Password my_password;
+	bool actual = my_password.has_mixed_case("&%$(@%&*)");
+	ASSERT_EQ(false, actual);
 }
