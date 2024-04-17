@@ -56,9 +56,15 @@ TEST(PasswordTest, empty_password){
 	ASSERT_EQ(0, actual);
 }
 
-TEST(CaseTest, both_cases){
+TEST(CaseTest, lower_then_upper){
 	Password my_password;
 	bool actual = my_password.has_mixed_case("AaA");
+	ASSERT_EQ(true, actual);
+}
+
+TEST(CaseTest, upper_then_lower){
+	Password my_password;
+	bool actual = my_password.has_mixed_case("aA");
 	ASSERT_EQ(true, actual);
 }
 
@@ -68,14 +74,27 @@ TEST(CaseTest, lower_only){
 	ASSERT_EQ(false, actual);
 }
 
+TEST(CaseTest, lower_and_symbols){
+	Password my_password;
+	bool actual = my_password.has_mixed_case("abbc^%&*");
+	ASSERT_EQ(false, actual);
+}
+
 TEST(CaseTest, upper_only){
 	Password my_password;
 	bool actual = my_password.has_mixed_case("ABC");
 	ASSERT_EQ(false, actual);
 }
 
-TEST(CaseTest, symbols){
+TEST(CaseTest, upper_and_symbols){
+	Password my_password;
+	bool actual = my_password.has_mixed_case("ABC%$^*");
+	ASSERT_EQ(false, actual);
+}
+
+TEST(CaseTest, symbols_only){
 	Password my_password;
 	bool actual = my_password.has_mixed_case("&%$(@%&*)");
 	ASSERT_EQ(false, actual);
 }
+
